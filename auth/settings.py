@@ -25,7 +25,7 @@ SECRET_KEY = '&84kgco4zqx-$zs1q+z)9ci54c$9^_125-hc$p93xj7q5eg8v&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['<ngrok subdomain>.ngrok.io', '127.0.0.1']
 
 
 # Application definition
@@ -145,5 +145,10 @@ STRIPE_SECRET = os.getenv('STRIPE_SECRET', 'sk_test_uhRK0lsdPERye3M6uiPkFnqq')
 APPEND_SLASH=False
 
 SITE_URL = 'http://127.0.0.1:8000'
-PAYPAL_NOTIFY_URL = 'http://127.0.0.1/a-very-hard-to-guess-url/'
-PAYPAL_RECEIVER_EMAIL = 'richard-facilitator@devjoy.com'
+PAYPAL_NOTIFY_URL = 'http://679f17b9.ngrok.io/007adceb-ab3e-4153-b4d6-d27f09673010/'
+PAYPAL_RECEIVER_EMAIL = '<seller email>'
+
+
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
