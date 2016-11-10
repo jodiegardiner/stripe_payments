@@ -17,8 +17,6 @@ class Magazine(models.Model):
     def __unicode__(self):
         return self.name
 
-
-
 class Purchase(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='purchases')
     magazine = models.ForeignKey(Magazine)

@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['<ngrok subdomain>.ngrok.io', '127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
+    'paypal.standard.ipn',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_forms_bootstrap',
-    'paypal.standard.ipn',
     'hello',
     'accounts',
     'paypal_store',
@@ -125,12 +125,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
-STATICFILES_DIRS = (
-   os.path.join(BASE_DIR, "static"),
-)
-
-
+# Auth Module
 AUTH_USER_MODEL = 'accounts.User'
 
 AUTHENTICATION_BACKENDS = (
@@ -138,17 +137,14 @@ AUTHENTICATION_BACKENDS = (
     'accounts.backends.EmailAuth',
 )
 
+# Payment method Modules
+STRIPE_PUBLISHABLE = os.getenv('STRIPE_PUBLISHABLE')
+STRIPE_SECRET = os.getenv('STRIPE_SECRET')
+PAYPAL_NOTIFY_URL = '007adceb-ab3e-4153-b4d6-d27f09673010/'
+PAYPAL_RECEIVER_EMAIL = 'protoskulls-facilitator@gmail.com'
 
-STRIPE_PUBLISHABLE = os.getenv('STRIPE_PUBLISHABLE', 'pk_test_q0Djm3YxMCXViIaBwHnCNCLj')
-STRIPE_SECRET = os.getenv('STRIPE_SECRET', 'sk_test_uhRK0lsdPERye3M6uiPkFnqq')
-
-APPEND_SLASH=False
-
+# URL infrastructure
 SITE_URL = 'http://127.0.0.1:8000'
-PAYPAL_NOTIFY_URL = 'http://679f17b9.ngrok.io/007adceb-ab3e-4153-b4d6-d27f09673010/'
-PAYPAL_RECEIVER_EMAIL = '<seller email>'
+APPEND_SLASH = False
 
 
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
