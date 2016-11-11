@@ -14,29 +14,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
-from django.contrib import admin
-from hello.views import get_index
-from accounts import views as accounts_views
-from magazines import views as magazine_views
-from paypal.standard.ipn import urls as paypal_urls
-from paypal_store import views as paypal_views
-from products import views as product_views
 from django.views import static
 from settings import MEDIA_ROOT
+from django.contrib import admin
+from accounts import urls as accounts_urls
+from hello import urls as hello_urls
+from magazines import urls as magazines_urls
+from paypal_store import urls as paypal_urls
+from products import urls as products_urls
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', get_index, name='index'),
-    url(r'^register/$', accounts_views.register, name='register'),
-    url(r'^profile/$', accounts_views.profile, name='profile'),
-    url(r'^login/$', accounts_views.login, name='login'),
-    url(r'^logout/$', accounts_views.logout, name='logout'),
-    url(r'^cancel_subscription/$', accounts_views.cancel_subscription, name='cancel_subscription'),
-    url(r'^subscriptions_webhook/$', accounts_views.subscriptions_webhook, name='subscriptions_webhook'),
-    url(r'^007adceb-ab3e-4153-b4d6-d27f09673010/', include(paypal_urls)),
-    url(r'^paypal-return', paypal_views.paypal_return),
-    url(r'^paypal-cancel', paypal_views.paypal_cancel),
-    url(r'^products/$', product_views.all_products),
-    url(r'^magazines/$', magazine_views.all_magazines),
-    url(r'^media/(?P<path>.*)$', static.serve,{'document_root': MEDIA_ROOT}),
+    url(r'^media/(?P<path>.*)$', static.serve, {'document_root': MEDIA_ROOT}),
+    url(r'^account/', include(accounts_urls)),
+    url(r'', include(hello_urls)),
+    url(r'^magazines/', include(magazines_urls)),
+    url(r'^store/', include(paypal_urls)),
+    url(r'^products/', include(products_urls)),
+
 ]
