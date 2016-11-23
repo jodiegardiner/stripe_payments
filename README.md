@@ -8,3 +8,7 @@ Also features several unit tests.
 
 
 [some url](http://example.com)
+
+* item 1
+* item 2
+* item 3
